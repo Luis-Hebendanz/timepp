@@ -52,6 +52,7 @@ const PanelMode = {
     DYNAMIC   : 3,
 };
 
+
 // =====================================================================
 // @@@ Main
 //
@@ -214,6 +215,8 @@ var SectionMain = class SectionMain extends ME.imports.sections.section_base.Sec
 
         this._update_time_display();
         this.header_label.text = _('Pomodoro');
+
+        this.start_new_pomo();
     }
 
     disable_section () {
@@ -274,6 +277,8 @@ var SectionMain = class SectionMain extends ME.imports.sections.section_base.Sec
             this.header.show();
         });
     }
+
+
 
     show_fullscreen () {
         this.ext.menu.close();
@@ -355,6 +360,10 @@ var SectionMain = class SectionMain extends ME.imports.sections.section_base.Sec
         if (this.cache.todo_task_id) {
             this.ext.emit_to_sections('stop-time-tracking-by-id', this.section_name, this.cache.todo_task_id);
         }
+    }
+
+    is_pomo_active(){
+        return this.pomo_state != PomoState.STOPPED;
     }
 
     start_new_pomo () {

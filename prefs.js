@@ -25,6 +25,7 @@ class Settings {
         this.switcher = new Gtk.StackSwitcher({ visible: true, stack: this.builder.get_object('settings_stack'), halign: Gtk.Align.CENTER, });
 
         this._bind_settings();
+        //this._set_headerbar();
     }
 
     // Bind the gtk window to the schema settings
@@ -541,6 +542,17 @@ class Settings {
             }
         });
     }
+
+    _set_headerbar() {
+        this.widget.connect('realize', () => {
+            let window = this.widget.get_root();
+            let headerBar = new Gtk.HeaderBar();
+            headerBar.set_title_widget(this.switcher);
+            window.set_titlebar(headerBar);
+            return false;
+        });
+    }
+
 
     _open_file_chooser(widget, settingsKey) {
         let parent = widget.get_root();
